@@ -1,0 +1,36 @@
+<div class="app flex-row align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card-group mb-0">
+          <div class="card p-4">
+            <div class="card-body">
+              <form class="loginForm" #loginForm="ngForm">
+              <h1>Login</h1>
+              <p class="text-muted">Sign In to your account</p>
+              <div class="input-group mb-3">
+                <span class="input-group-addon"><i class="icon-user"></i></span>
+                <input name="userID" id="userID" #userID="ngModel" [(ngModel)]="loginService.login.userID" class="form-control" placeholder="Username" required> 
+                <div class="validation-error" *ngIf="userID.invalid && userID.touched">User Name is required.</div>
+              </div>
+              <div class="input-group mb-4">
+                <span class="input-group-addon"><i class="icon-lock"></i></span>
+                <input type="password" name="password" #password="ngModel" [(ngModel)]="loginService.login.password" class="form-control" placeholder="Password" required> 
+                <div class="validation-error" *ngIf="password.invalid && password.touched">Password is required.</div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <button [disabled]="!loginForm.valid" type="submit" (click)="login(loginForm)" class="btn btn-primary px-4">Login</button>
+                </div>
+                <div class="col-6 text-right">
+                  <button class="btn btn-link px-0">Forgot password?</button>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

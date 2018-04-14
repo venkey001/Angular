@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-md-7">
+        <form class="moduleForm" #moduleForm="ngForm">
+            <div class="card">
+            <div class="card-header"><strong>Module Details</strong></div>
+            <div class="form-row card-body">
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom01">Module ID</label>
+                    <input type="hidden" name="id" id="moduleAutoID" #moduleAutoId="ngModel" [(ngModel)]="securityService.selectedModule.id">
+                    <input name="moduleId" id="moduleId" #moduleId="ngModel" [(ngModel)]="securityService.selectedModule.moduleId" class="form-control" required> 
+                    <div class="validation-error" *ngIf="moduleId.invalid && moduleId.touched">Module ID is required.</div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom02">Module Name</label>
+                    <input name="moduleName" #moduleName="ngModel" [(ngModel)]="securityService.selectedModule.moduleName" class="form-control" required>
+                    <div class="validation-error" *ngIf="moduleName.invalid && moduleName.touched">Module Name is required.</div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom02">Active</label>
+                    <select name="active" #active="ngModel" [(ngModel)]="securityService.selectedModule.active" style="height: 30px;" class="form-control form-control-sm">
+                        <option value="">Select</option>
+                        <option value="Y">Yes</option>
+                        <option value="N">No</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustomUsername">Comments</label>
+                    <textarea name="comments" #comments="ngModel" [(ngModel)]="securityService.selectedModule.comments" class="form-control" rows="1"></textarea>
+                </div>
+            </div>
+            </div>
+            <div class="card">
+            <div class="card-header"><strong>Feature Details</strong></div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="col-md-3 mb-3"><label>Feature ID</label></div>
+                    <div class="col-md-3 mb-3"><label>Feature Name</label></div>
+                    <div class="col-md-2 mb-2"><label>Active</label></div>
+                    <div class="col-md-2 mb-2" (click)="addRow()"><i class="fa fa-plus-circle fa-lg mt-2 customPointer"></i></div>
+                </div>
+                <div class="form-row" *ngFor ="let feature of securityService.selectedModule.featureDOs; index as i">
+                    <div class="col-md-3 mb-3">
+                        <input type="hidden" name="featureDOs[{{i}}].id" id="ftrAutoID" #ftrAutoId="ngModel" [(ngModel)]="feature.id">
+                        <input name="featureDOs[{{i}}].featureId" #featureId="ngModel" [(ngModel)]="feature.featureId" class="form-control" required>
+                        <div class="validation-error" *ngIf="featureId.invalid && featureId.touched">Feature ID is required.</div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <input name="featureDOs[{{i}}].featureName" #featureName="ngModel" [(ngModel)]="feature.featureName" class="form-control" required>
+                        <div class="validation-error" *ngIf="featureName.invalid && featureName.touched">Feature Name is required.</div>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <select name="featureDOs[{{i}}].active" #active="ngModel" [(ngModel)]="feature.active" class="form-control form-control-sm">
+                            <option value="">Select</option>
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-2" (click)="removeRow(i)"><i class="icon-close icons font-2xl customPointer"></i></div>
+                </div>
+            </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <button [disabled]="!moduleForm.valid" class="btn btn-block btn-info" (click)="onSubmit(moduleForm)" type="submit"><i class="fa fa-save fa-lg mt-4">Submit</i></button>
+                </div>
+                <div class="form-group col-md-2">
+                    <button class="btn btn-block btn-secondary" type="reset" (click)="resetForm(moduleForm)"><i class="fa fa-rotate-right fa-lg mt-4">Reset</i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-header"><strong>Module Search</strong></div>
+            <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 mb-4"><b><label>Module ID</label></b></div>
+                <div class="col-md-3 mb-4"><b><label>Module Name</label></b></div>
+                <div class="col-md-2 mb-3"><b><label>Active</label></b></div>
+                <div class="col-md-2 mb-1"><b><label>Edit</label></b></div>
+                <div class="col-md-2 mb-1"><b><label>Delete</label></b></div>
+            </div>
+            <div class="row" *ngFor="let module of listModules">
+                <div class="col-md-3 mb-4"><label>{{module.moduleId}}</label></div>
+                <div class="col-md-3 mb-4"><label>{{module.moduleName}}</label></div>
+                <div class="col-md-2 mb-4"><label>{{module.active}}</label></div>
+                <div class="col-md-2 mb-1" (click)="getModuleById(module.id)" id="{{module.id}}"><i class="fa fa-edit fa-lg mt-1 customPointer"></i></div>
+                <div class="col-md-2 mb-1" (click)="deleteModule(module.id)"><i class="fa fa-archive fa-lg mt-1 customPointer"></i></div>
+            </div>
+            </div>
+            </div>
+    </div>
+</div>

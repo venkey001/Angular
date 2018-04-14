@@ -1,0 +1,410 @@
+<div class="animated fadeIn container-fluid">
+  <div class="row">
+    <div class="col-md-11"></div>
+    <div class="col-md-1"><button type="button" id="empModalId" class="btn btn-primary largeModal.show" data-toggle="modal" (click)="largeModal.show(); resetForm()"> Add Employee</button></div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-2 paginationHead"><strong>Employee ID</strong></div>
+    <div class="col-md-2 paginationHead"><strong>First Name</strong></div>
+    <div class="col-md-2 paginationHead"><strong>Last Name</strong></div>
+    <div class="col-md-2 paginationHead"><strong>Email</strong></div>
+    <div class="col-md-2 paginationHead"><strong>Department</strong></div>
+    <div class="col-md-1 paginationHead"><strong>Status</strong></div>
+    <div class="col-md-1 paginationHead"><strong>Edit</strong></div>
+  </div>
+  <hr/>
+  <div class="row" *ngFor="let employee of employees">
+    <div class="col-md-2">{{employee.empId}}</div>
+    <div class="col-md-2">{{employee.firstName}}</div>
+    <div class="col-md-2">{{employee.lastName}}</div>
+    <div class="col-md-2">{{employee.email}}</div>
+    <div class="col-md-2">{{employee.department}}</div>
+    <div class="col-md-1">{{employee.status}}</div>
+    <div class="col-md-1 mb-1" (click)="getEmployeeById(employee.id); largeModal.show();"><i class="fa fa-edit fa-lg mt-1"></i></div>
+  </div>
+</div>
+
+
+<div bsModal #largeModal="bs-modal" id="largeModal"  class="modal right fade" tabindex="-1"  role="dialog">
+  <div class="modal-dialog modal-lg" role="document" style="width:60%">
+    <div class="modal-content">
+    <div class="modal-header">
+      <strong>Add Employee</strong>
+      <button type="button" class="close" (click)="largeModal.hide();" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+      <div class="pad" id="zp_form_body">
+        <form class="employeeForm" #employeeForm="ngForm" enctype="multipart/form-data">
+          <h6 issec="true"><span class="ZPbold">Basic Info</span></h6>
+          <div class="row" row="1" istabular="false" isgrid="false">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class=" Matry"><sup>*</sup>EmployeeID</label>
+              <div folabel="EmployeeID">
+                <input name="empId" id="empId" #empId="ngModel" [(ngModel)]="orgService.employee.empId" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class=" Matry"><sup>*</sup>Last Name</label>
+              <div folabel="LastName">
+                <input name="lastName" id="lastName" #lastName="ngModel" [(ngModel)]="orgService.employee.lastName" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class=" ">Nick Name</label>
+              <div folabel="Nick_Name">
+                <input name="nickName" id="nickName" #nickName="ngModel" [(ngModel)]="orgService.employee.nickName" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class=" Matry"><sup>*</sup>First Name</label>
+              <div folabel="FirstName">
+                <input name="firstName" id="firstName" #firstName="ngModel" [(ngModel)]="orgService.employee.firstName" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class=" Matry"><sup>*</sup>Email ID</label>
+              <div folabel="EmailID" >
+                <input name="email" id="email" #email="ngModel" [(ngModel)]="orgService.employee.email" class="form-control">
+              </div>
+              </div>
+            </div>
+          </div>
+          <h6 issec="true"><span class="ZPbold">Work</span><div class="clearfix"></div></h6>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="">Department</label>
+                <div folabel="Department">
+                  <select name="department" id="department" #department="ngModel" [(ngModel)]="orgService.employee.department" class="form-control-sm">
+                    <option value="" selected="selected">Select</option>
+                    <option value="Hr">HR</option>
+                    <option value="Development">Development</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Reporting To</label>
+                <div folabel="Reporting_To">
+                  <select name="reportTo" id="reportTo" #reportTo="ngModel" [(ngModel)]="orgService.employee.reportTo" class="form-control-sm">
+                    <option value="" selected="selected">Select</option>
+                    <option value="430091000000124005">Venkatesh</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class=" ">Source of hire</label>
+                <div folabel="Source_of_hire">
+                  <select name="srcofhire" id="srcofhire" #srcofhire="ngModel" [(ngModel)]="orgService.employee.srcofhire" class="form-control-sm">
+                    <option value="" selected="selected">Select</option>
+                    <option value="Direct">Direct</option>
+                    <option value="Referral">Referral</option>
+                    <option value="Web">Web</option>
+                    <option value="Newspaper">Newspaper</option>
+                    <option value="Advertisement">Advertisement</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="">Seating Location</label>
+                <div folabel="Work_location">
+                  <input name="seatLocation" id="seatLocation" #seatLocation="ngModel" [(ngModel)]="orgService.employee.seatLocation" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                  <label class=" ">Work phone</label>
+                  <div folabel="Work_phone">
+                    <input name="workPhone" id="workPhone" #workPhone="ngModel" [(ngModel)]="orgService.employee.workPhone" class="form-control">
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class=" ">Location</label>
+                <div folabel="LocationName">
+                  <select name="location" id="location" #location="ngModel" [(ngModel)]="orgService.employee.location" class="form-control-sm">
+                    <option value="" selected="selected">Select</option>
+                    <option value="BANG">Bangalore</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group" isallowed="false">
+                <label class="">Date of joining</label>
+                <div folabel="Dateofjoining">
+                  <div class="btnCal "><input name="doj" id="doj" #doj="ngModel" [(ngModel)]="orgService.employee.doj" class="form-control"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class=" ">Employee status</label>
+                <div folabel="Employeestatus">
+                  <select name="empstatus" id="empstatus" #empstatus="ngModel" [(ngModel)]="orgService.employee.empstatus" class="form-control-sm">
+                    <option value="">Select</option>
+                    <option value="Active">Active</option>
+                    <option value="Terminated">Terminated</option>
+                    <option value="Deceased">Deceased</option>
+                    <option value="Resigned">Resigned</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class=" ">Employee type</label>
+                <div folabel="Employee_type">
+                  <select name="empType" id="empType" #empType="ngModel" [(ngModel)]="orgService.employee.empType" class="form-control-sm">
+                    <option value="">Select</option>
+                    <option value="Permanent">Permanent</option>
+                    <option value="On Contract">On Contract</option>
+                    <option value="Temporary">Temporary</option>
+                    <option value="Trainee">Trainee</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class=" ">Role</label>
+                <div folabel="Role" >
+                  <select name="role" id="role" #role="ngModel" [(ngModel)]="orgService.employee.role" class="form-control-sm">
+                    <option value="">Select</option>
+                    <option value="admin">Admin</option>
+                    <option value="teamMem">Team member</option>
+                    <option value="manager">Manager</option>
+                    <option value="director">Director</option>
+                    <option value="teamInc">Team Incharge</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h6>
+            <span class="ZPbold">Personal</span>
+            <div class="clearfix"></div>
+          </h6>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Mobile Phone</label>
+                <div folabel="Mobile" >
+                  <input name="mobileNo" id="mobileNo" #mobileNo="ngModel" [(ngModel)]="orgService.employee.mobileNo" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Other Email</label>
+                <div folabel="Other_Email">
+                  <input name="otheremail" id="otheremail" #otheremail="ngModel" [(ngModel)]="orgService.employee.otheremail" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class=" ">Marital status</label>
+                <div folabel="Marital_status">
+                  <div class="MB10">
+                    <label class="radio DIB">
+                      <input type="radio" name="maritalstatus" id="maritalstatus" #maritalstatus="ngModel" [(ngModel)]="orgService.employee.maritalstatus" value="Single">
+                      <span>Single</span>
+                    </label>
+                    <span class="clearfix"></span>
+                    <label class="radio DIB">
+                      <input type="radio" name="maritalstatus" id="maritalstatus" #maritalstatus="ngModel" [(ngModel)]="orgService.employee.maritalstatus" value="Married">
+                      <span>Married</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Address</label>
+                <div folabel="Address">
+                  <textarea name="address" id="address" #address="ngModel" [(ngModel)]="orgService.employee.address" class="form-control" rows="5" style="max-width:100%;"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                  <label class=" ">Birth Date</label>
+                  <div folabel="Date_of_birth">
+                    <input name="dob" id="dob" #dob="ngModel" [(ngModel)]="orgService.employee.dob" class="form-control">
+                  </div>
+                </div>
+            </div>
+          </div>
+          <h6>
+            <span class="ZPbold">Summary</span>
+            <div class="clearfix"></div>
+          </h6>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Job Description</label>
+                <div folabel="Current_Job_Description">
+                  <textarea name="jobDescp" id="jobDescp" #jobDescp="ngModel" [(ngModel)]="orgService.employee.jobDescp" class="form-control" rows="5" style="max-width:100%;"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                  <label class=" ">Gender</label>
+                  <div folabel="Gender" >
+                    <select name="gender" id="gender" #gender="ngModel" [(ngModel)]="orgService.employee.gender" class="form-control-sm">
+                      <option value="">Select</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class=" ">AboutMe</label>
+                <div folabel="AboutMe">
+                  <textarea name="aboutMe" id="aboutMe" #aboutMe="ngModel" [(ngModel)]="orgService.employee.aboutMe" class="form-control" rows="5" style="max-width:100%;"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class=" ">Date of exit</label>
+                <div folabel="Dateofexit">
+                  <div class="btnCal ">
+                    <input name="doe" id="doe" #doe="ngModel" [(ngModel)]="orgService.employee.doe" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h6 issec="true">
+            <span class="ZPbold">Work experience</span>
+            <div class="FR">
+              <div class="IC-plus-big S14 blu CP MR5 FL"></div>
+              <a href="javascript:;" (click)="addRow('WORK')">Add Row</a>
+            </div>
+          </h6>
+          <div class="table-responsive">
+            <table class="table table-hover Vlis bgc edit">
+              <thead>
+                <tr>
+                  <th>Company Name</th>
+                  <th>Job Title</th>
+                  <th>From Date</th>
+                  <th>To Date</th>
+                  <th>Job Description</th>
+                  <th width="45"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="prevCompanyTrId" *ngFor ="let workExperiance of orgService.employee.workexp; index as i">
+                  <td folabel="Employer">
+                    <input name="workexp[{{i}}].companyName" id="companyName" #companyName="ngModel" [(ngModel)]="workExperiance.companyName" class="form-control">
+                  </td>
+                  <td folabel="Jobtitle">
+                      <input name="workexp[{{i}}].jobTitle" id="jobTitle" #jobTitle="ngModel" [(ngModel)]="workExperiance.jobTitle" class="form-control">
+                  </td>
+                  <td folabel="FromDate">
+                      <input name="workexp[{{i}}].fromDate" id="fromDate" #fromDate="ngModel" [(ngModel)]="workExperiance.fromDate" class="form-control">
+                  </td>
+                  <td folabel="Todate">
+                      <input name="workexp[{{i}}].toDate" id="toDate" #toDate="ngModel" [(ngModel)]="workExperiance.toDate" class="form-control">
+                  </td>
+                  <td folabel="Previous_JobDesc" id="zp_field_outer_430091000000036297">
+                    <textarea name="workexp[{{i}}].jobDescri" id="jobDescri" #jobDescri="ngModel" [(ngModel)]="workExperiance.jobDescri" class="form-control" rows="5" style="max-width:100%;"></textarea>
+                  </td>
+                  <td><div><a href="javascript:;" (click)="removeRow(i,'WORK')">X</a></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h6 issec="true">
+            <span class="ZPbold">Education</span>
+            <div class="FR">
+              <div class="IC-plus-big S14 blu CP MR5 FL"></div>
+              <a href="javascript:;" (click)="addRow('EDU')">Add Row</a>
+            </div>
+          </h6>
+          <div class="table-responsive" row="1" istabular="true" isgrid="true">
+            <table class="table table-hover Vlis bgc edit">
+              <thead>
+                <tr>
+                  <th class=" ">School Name</th>
+                  <th class=" ">Degree/Diploma</th>
+                  <th class=" ">Field(s) of Study</th>
+                  <th class=" ">Date of Completion</th>
+                  <th class=" ">Additional Notes</th>
+                  <th class=" ">Interests</th>
+                  <th width="45"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let education of orgService.employee.education; index as i">
+                  <td folabel="College">
+                      <input name="education[{{i}}].schoolName" id="schoolName" #schoolName="ngModel" [(ngModel)]="education.schoolName" class="form-control">
+                  </td>
+                  <td folabel="Degree">
+                      <input name="education[{{i}}].degree" id="degree" #degree="ngModel" [(ngModel)]="education.degree" class="form-control">
+                  </td>
+                  <td folabel="Specialization">
+                      <input name="education[{{i}}].fieldofStudy" id="fieldofStudy" #fieldofStudy="ngModel" [(ngModel)]="education.fieldofStudy" class="form-control">
+                  </td>
+                  <td folabel="Yearofgraduation">
+                      <input name="education[{{i}}].doc" id="doc" #doc="ngModel" [(ngModel)]="education.doc" class="form-control">
+                  </td>
+                  <td folabel="Education_AdditionalNotes">
+                    <textarea name="education[{{i}}].additionalNotes" id="additionalNotes" #additionalNotes="ngModel" [(ngModel)]="education.additionalNotes" class="form-control" rows="5" style="max-width:100%;"></textarea>
+                  </td>
+                  <td folabel="Interests">
+                    <textarea name="education[{{i}}].intersts" id="intersts" #intersts="ngModel" [(ngModel)]="education.intersts" class="form-control" rows="5" style="max-width:100%;"></textarea>
+                  </td>
+                  <td><div><a href="javascript:;" (click)="removeRow(i,'EDU')">X</a></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h6 issec="true">
+            <span class="ZPbold">Dependent</span>
+            <div class="FR" istabadd="true">
+              <div class="IC-plus-big S14 blu CP MR5 FL"></div>
+              <a href="javascript:;" (click)="addRow('DEPEN')">Add Row</a>
+            </div>
+          </h6>
+          <div class="table-responsive" *ngFor="let dependent of orgService.employee.dependent; index as i;">
+            <table class="table table-hover Vlis bgc edit">
+              <thead>
+                <tr>
+                  <th class=" ">Name</th>
+                  <th class=" ">Relationship</th>
+                  <th class=" ">Date of birth</th>
+                  <th width="45"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="zp_tabular_row" row="1">
+                  <td folabel="Name" >
+                      <input name="dependent[{{i}}].name" id="name" #name="ngModel" [(ngModel)]="dependent.name" class="form-control">
+                  </td>
+                  <td folabel="DependentRelationship">
+                    <div>
+                      <select name="dependent[{{i}}].relationship" id="relationship" #relationship="ngModel" [(ngModel)]="dependent.relationship" class="form-control-sm">
+                        <option value="">Select</option>
+                        <option value="Father">Father</option>
+                        <option value="Mother">Mother</option>
+                        <option value="Brother">Brother</option>
+                        <option value="Sister">Sister</option>
+                        <option value="Husband">Husband</option>
+                        <option value="Wife">Wife</option>
+                        <option value="Child">Child</option>
+                      </select>
+                    </div>
+                  </td>
+                  <td folabel="DependentDOB">
+                    <div class="btnCal ">
+                        <input name="dependent[{{i}}].dob" id="dob" #dob="ngModel" [(ngModel)]="dependent.dob" class="form-control">
+                    </div>
+                  </td>
+                  <td><div><a href="javascript:;" (click)="removeRow(i,'DEPEN')">X</a></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
+      <button class="btn btn-primary" (click)="onSubmit(employeeForm); largeModal.hide();" type="button">Submit</button>
+    </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
